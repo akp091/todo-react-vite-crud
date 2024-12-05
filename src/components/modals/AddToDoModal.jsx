@@ -24,7 +24,6 @@ export default function AddToDoModal(props) {
       title: title,
       description: description,
       isCompleted: false,
-      createdAt: Date.now(),
     };
 
     props?.addToDo(todo);

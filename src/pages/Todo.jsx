@@ -5,42 +5,12 @@ import AddToDoModal from "../components/modals/AddToDoModal";
 import axios from "axios";
 
 const Todo = () => {
-  // const todos = [
-  //   {
-  //     id: 1,
-  //     title: "Buy groceries",
-  //     description: "Milk, bread, eggs, and fruits",
-  //     isCompleted: false,
-  //     createdAt: new Date("2024-12-03T09:00:00"),
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Morning workout",
-  //     description: "30-minute run and stretching exercises",
-  //     isCompleted: true,
-  //     createdAt: new Date("2024-12-02T07:30:00"),
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Complete project report",
-  //     description: "Finalize and email the report to the manager",
-  //     isCompleted: false,
-  //     createdAt: new Date("2024-12-03T10:15:00"),
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Call the plumber",
-  //     description: "Fix the leaking kitchen sink",
-  //     isCompleted: false,
-  //     createdAt: new Date("2024-12-03T11:00:00"),
-  //   },
-  // ];
 
   const [allToDos, setAllToDos] = useState([]);
   const [modalState, setModalState] = useState(false);
   const getAllToDos = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/todos");
+      const response = await axios.get("http://localhost:3000/todos/");
       if (response.status === 200) {
         console.log("response", response);
         setAllToDos(response.data); // response ke andr jis bhi field me data aa rha hoga usko state me set kra lena
@@ -57,18 +27,10 @@ const Todo = () => {
     getAllToDos();
   }, []);
 
-  // const addToDo = (data) => {
-  //   setAllToDos((prevTodos) => {
-  //     const id =
-  //       prevTodos.length > 0 ? prevTodos[prevTodos.length - 1].id + 1 : 1;
-  //     const newData = { ...data, id };
-  //     return [...prevTodos, newData];
-  //   });
-  // };
 
   const addToDo = async (newToDo) => {
     try {
-      const response = await axios.post('http://localhost:3000', newToDo);
+      const response = await axios.post('http://localhost:3000/todos/', newToDo);
       if (response.status === 201) {
         console.log("ToDo added successfully:", response.data);
         getAllToDos();
@@ -83,7 +45,7 @@ const Todo = () => {
   const updateToDo = async (updatedToDo) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/${updatedToDo.id}`,
+        `http://localhost:3000/todos/${updatedToDo.id}`,
         updatedToDo
       );
       if (response.status === 200) {
@@ -99,7 +61,7 @@ const Todo = () => {
 
   const deleteToDo = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:3000/${id}`);
+      const response = await axios.delete(`http://localhost:3000/todos/${id}`);
       if (response.status === 200) {
         console.log("ToDo deleted successfully");
         getAllToDos();
@@ -118,21 +80,8 @@ const Todo = () => {
     setModalState(false);
   };
 
-  // const updateToDo = (data) => {
-  //   console.log("id", data);
-  //   setAllToDos((prev) =>
-  //     prev.map((item) => (item.id === data.id ? { ...item, ...data } : item))
-  //   );
-  //   // const value = allToDos.filter((todo) => todo.id === data?.id);
-  // };
-
-  // const deleteToDo = (id) => {
-  //   console.log("id", id);
-  //   setAllToDos((prev) => prev.filter((item) => item.id !== id));
-  //   // const value = allToDos.filter((todo) => todo.id !== id);
-  // };
-
-  return (
+  return (<>
+  <div className="d-flex justify-content-center m-4"><h1>ToDo List</h1></div>
     <div className="row">
       {allToDos.map((todoItem, index) => (
         <div
@@ -156,6 +105,7 @@ const Todo = () => {
         addToDo={addToDo}
       />
     </div>
+    </>
   );
 };
 

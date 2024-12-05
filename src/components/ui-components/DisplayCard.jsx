@@ -21,13 +21,12 @@ function DisplayCard(props) {
     <>
       <Card style={{ width: "18rem" }}>
         <Card.Body>
-          <Card.Title>{props?.data?.title}</Card.Title>
-          {/* <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
-          <Card.Text>{props?.data?.description}</Card.Text>
+          <Card.Title>{props?.data?.task}</Card.Title>
           <Button
             variant="primary"
             onClick={openToDoModal}
             disabled={props?.data?.isCompleted}
+            className="btn m-1"
           >
             Edit
           </Button>
